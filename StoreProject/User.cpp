@@ -2,7 +2,12 @@
 #include <string> 
 #include <fstream>
 #include <iostream>
-#include <vector>
+#include <vector> 
+
+User::User() {
+    username = "";
+    password = "";
+}
 
 bool User::registerUser(string username, string password) {
     ofstream outFile;
@@ -20,7 +25,7 @@ bool User::registerUser(string username, string password) {
     Other functions that are performing similar tasks will follow approximately the same procedure,
     to avoid over-commenting, these other functions won't be commented in the same places.
 */
-bool login(const string& username, const string& password) {
+bool User::login(string username, string password) {
     ifstream inFile("login.csv"); //Opens file
 
     //Standard error handler
@@ -263,5 +268,32 @@ bool User::deleteAccount(string username, string password) {
         }
         outFile.close();    //Closes file
     }
+    return true;
+}
+
+
+/*
+    Both the function bellow work the same way, only the file and parameters being written are different.
+    So comments are the same for each respective place.
+*/
+bool User::editPayment(string username, string cardName, string cardNumber, string cardExpiration, string cardCVV) {
+    ofstream outFile;  
+    outFile.open("payment.csv", ios::app); //Opens file in ofstream mode
+    if (!outFile.is_open()) {   //Default error handler
+        return false;
+    }
+    outFile << username << "," << cardName << "," << cardNumber << "," << cardExpiration << "," << cardCVV << endl; //Write information to file
+    outFile.close();    //Closes file
+    return true;
+}
+
+bool User::editShipping(string username, string address, string city, string state, string zip) {
+    ofstream outFile;
+    outFile.open("shipping.csv", ios::app);
+    if (!outFile.is_open()) {
+        return false;
+    }
+    outFile << username << "," << address << "," << city << "," << state << "," << zip << endl;
+    outFile.close();
     return true;
 }

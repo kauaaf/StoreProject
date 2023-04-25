@@ -9,17 +9,6 @@ User::User() {
     password = "";
 }
 
-bool User::registerUser(string username, string password) {
-    ofstream outFile;
-    outFile.open("login.csv", ios::app);
-    if (outFile.is_open()) {
-        outFile << username << "," << password << endl;
-        outFile.close();
-        return true;
-    }
-    return false;
-}
-
 /*
     The overall workings of the login() function was commented in details for each part.
     Other functions that are performing similar tasks will follow approximately the same procedure,
@@ -46,6 +35,35 @@ bool User::login(string username, string password) {
         }
     }
     inFile.close();
+    return false;
+}
+
+/*
+    The workings of the redisterUser consists in a while loop similar to the one above. 
+*/
+bool User::registerUser(string username, string password) {
+    ifstream inFile;
+    inFile.open("login.csv");
+    string line;
+    while (getline(inFile, line)) { //This loop checks if username is already being used.
+        size_t pos = line.find(",");
+        string existingUsername = line.substr(0, pos);
+        if (existingUsername == username) {
+            cout << "Username already in use. Try another" << endl;
+            inFile.close();
+            return false;   //Returns false if the username already exists in the login.csv file
+        }
+    }
+    inFile.close();
+
+    //If username is not already in use, then the function will simply ofstream the username, password to the file.
+    ofstream outFile;
+    outFile.open("login.csv", ios::app);
+    if (outFile.is_open()) {
+        outFile << username << "," << password << endl;
+        outFile.close();
+        return true;
+    }
     return false;
 }
 

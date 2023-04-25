@@ -128,7 +128,7 @@ int main()
 
                     cin >> editOption;
 
-                    if (editOption == 1) {
+                    if (editOption == "1") {
                         cout << "\t\tEnter the Name on the Card:\t";
                         cin >> cardName;
                         cout << "\t\tEnter the Card Number:\t";
@@ -139,7 +139,7 @@ int main()
                         cin >> cardCVV;
                         ppl.editPayment(username, cardName, cardNumber, cardExp, cardCVV);
                     }
-                    if (editOption == 2) {
+                    if (editOption == "2") {
                         cout << "\t\tEnter Your Shipping Address (Just the street address):\t";
                         cin >> address;
                         cout << "\t\tEnter the City:\t";

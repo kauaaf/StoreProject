@@ -48,32 +48,36 @@ int main()
             cout << "Please Enter your Password:\t";
             cin >> password;
             cout << endl;
-            if (ppl.login(username, password)) {
+            if (!ppl.login(username, password)) {
+                cout << "Login Not Successful, Try Again" << endl;
+
+            }
+            else {
                 cout << "Login Successful" << endl;
                 pass = 1;
             }
-            else {
-                cout << "Login Not Successful, Try Again" << endl;
-            }
         }
 
-        if (option == "2") {
+        else if (option == "2") {
             cout << "Please Enter your Desired Username:\t";
             cin >> newUsername;
             cout << endl;
             cout << "Please Enter your Desired Password:\t";
             cin >> newPassword;
             cout << endl;
-            if (ppl.registerUser(newUsername, newPassword)) {
-                cout << "Account Creation Succesfull, Proceed to Login" << endl;
+            if (!ppl.registerUser(newUsername, newPassword)) {
+                cout << "There was an error, Try again" << endl;
             }
+          else {
+            cout << "Account Creation Succesfull, Proceed to Login" << endl;
+          }
         }
         else {
             cout << "Not a valid option, Try again" << endl;
         }
         if (pass == 1) {
             while (pass == 1) {//Continue Menuing with the other options
-                option2 = 0;
+                option2 = "";
                 editOption = "";
                 cardName, cardNumber, cardExp, cardCVV = "";
                 address, city, state, zip = "";
@@ -86,7 +90,7 @@ int main()
                 cout << "5. Remove Item From Cart" << endl;
                 cout << "6. Checkout" << endl;
                 cout << "7. View Order History" << endl;
-                cout << "8. Edit Account" << endl;
+                cout << "8. Edit Account(Add/Edit Payment or Shipping Method)" << endl;
                 cout << "9. Delete Account" << endl;
 
                 cout << "Enter choice: ";
@@ -100,31 +104,33 @@ int main()
                     pass = -1;
 
                 }
-                if (option2 == "1") {
-                    pass = 1;
+                else if (option2 == "1") {
+                    pass = 0;
                 }
-                if (option2 == "2") {
+                else if (option2 == "2") {
 
                 }
-                if (option2 == "3") {
+                else if (option2 == "3") {
 
                 }
-                if (option2 == "4") {
+                else if (option2 == "4") {
 
                 }
-                if (option2 == "5") {
+                else if (option2 == "5") {
 
                 }
-                if (option2 == "6") {
+                else if (option2 == "6") {
 
                 }
-                if (option2 == "7") {
+                else if (option2 == "7") {
                     ppl.getOrder(username);
                 }
-                if (option2 == "8") {
-                    cout << "\t0. Back (PRESS ANY OTHER KEY TO GO BACK)" << endl;
+                else if (option2 == "8") {
+                    cout << "\t0. Back (PRESS ANY OTHER KEY Then Enter TO GO BACK)" << endl;
                     cout << "\t1. Edit Payment" << endl;
                     cout << "\t2. Edit Shipping" << endl;
+                    cout << "\t3. Add Payment" << endl;
+                    cout << "\t4. Add Shipping" << endl;
 
                     cin >> editOption;
 
@@ -137,32 +143,78 @@ int main()
                         cin >> cardExp;
                         cout << "\t\tEnter the CVV:\t";
                         cin >> cardCVV;
-                        ppl.editPayment(username, cardName, cardNumber, cardExp, cardCVV);
+                        if(!ppl.editPayment(username, cardName, cardNumber, cardExp, cardCVV)) {
+                          cout << "There was an error, Please try again" << endl;
+                        }
+                        else {
+                          cout << "Payment Changed Succesffuly" << endl;
+                        }
                     }
-                    if (editOption == "2") {
+                   if (editOption == "2") {
                         cout << "\t\tEnter Your Shipping Address (Just the street address):\t";
-                        cin >> address;
+                        cin.ignore();
+                        getline(cin, address);
                         cout << "\t\tEnter the City:\t";
                         cin >> city;
                         cout << "\t\tEnter the State (Abbreviation):\t";
                         cin >> state;
                         cout << "\t\tEnter the Zip Code:\t";
                         cin >> zip;
-                        ppl.editShipping(username, address, city, state, zip);
+                        if(!ppl.editShipping(username, address, city, state, zip)) {
+                           cout << "There was an error, Please try again" << endl;
+                           
+                        }
+                        else {
+                          cout << "Shipping Changed Succesffuly" << endl;
+                        }
+                    }
+                  if (editOption == "3") {
+                        cout << "\t\tEnter the Name on the Card:\t";
+                        cin >> cardName;
+                        cout << "\t\tEnter the Card Number:\t";
+                        cin >> cardNumber;
+                        cout << "\t\tEnter the Expiration (MM/DD):\t";
+                        cin >> cardExp;
+                        cout << "\t\tEnter the CVV:\t";
+                        cin >> cardCVV;
+                        if(!ppl.makePayment(username, cardName, cardNumber, cardExp, cardCVV)) {
+                          cout << "There was an error, Please try again" << endl;
+                        }
+                        else {
+                          cout << "Payment Method Added Succesffuly" << endl;                        }
+                    }
+                    if (editOption == "4") {
+                        cout << "\t\tEnter Your Shipping Address (Just the street address):\t";
+                        cin.ignore();
+                        getline(cin, address);
+                        cout << "\t\tEnter the City:\t";
+                        cin >> city;
+                        cout << "\t\tEnter the State (Abbreviation):\t";
+                        cin >> state;
+                        cout << "\t\tEnter the Zip Code:\t";
+                        cin >> zip;
+                        if(!ppl.makeShipping(username, address, city, state, zip)) {
+                           cout << "There was an error, Please try again" << endl;
+                        }
+                        else {
+                          cout << "Shipping Address Added" << endl;
+                      }
+
                     }
 
                 }
-                if (option2 == "9") {
+                else if (option2 == "9") {
                     cout << "\t\tTo Confirm, type your Password:\t" << endl;
                     cin >> confirmPassword;
                     if (password == confirmPassword) {
                         cout << "\t\tDeleting Account.." << endl;
-                        if (ppl.deleteAccount(username, password)) {
-                            cout << "\t\t Account Deletion Succesfful!" << endl;
-                            pass == 1;
+                        if (!ppl.deleteAccount(username, password)) {
+                          cout << "\t\t There was an error with the deletion, please try again" << endl;
+
                         }
                         else {
-                            cout << "\t\t There was an error with the deletion, please try again" << endl;
+                            cout << "\t\t Account Deletion Succesfful!" << endl;
+                            pass = 1;
                         }
 
                     }

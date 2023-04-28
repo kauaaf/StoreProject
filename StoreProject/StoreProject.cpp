@@ -11,6 +11,7 @@ int main()
     cout << "Welcome to the Store" << endl << endl;
     User ppl;
    
+
     while (1)
     {
         int pass = 0;
@@ -85,7 +86,7 @@ int main()
                 cout << "Menu: " << endl;
                 cout << "0. Exit" << endl;
                 cout << "1. Logout" << endl;
-                cout << "3. Catelog Search" << endl;
+                cout << "3. Catalog Search" << endl;
                 cout << "4. Add Item From Catalog to Cart" << endl;
                 cout << "5. Remove Item From Cart" << endl;
                 cout << "6. Checkout" << endl;
@@ -214,7 +215,7 @@ int main()
                         }
                         else {
                             cout << "\t\t Account Deletion Succesfful!" << endl;
-                            pass = 1;
+                            pass = 0;
                         }
 
                     }

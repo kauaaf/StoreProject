@@ -23,6 +23,7 @@ bool User::login(string username, string password) {
         return false;
     }
     string line;
+    bool userFound = false;
     while (getline(inFile, line)) {   //Loop will parse through words until it finds a comma
         size_t comma = line.find(',');  //That's the only way I come up to find the comma
         if (comma != string::npos) {    //string::npos is assigned to comma if the comma is not found in the line
@@ -30,11 +31,16 @@ bool User::login(string username, string password) {
             string file_password = line.substr(comma + 1);  //Stores the right-hand side of the comma
             if (file_username == username && file_password == password) {   //Checks if the line contains parameters passed
                 inFile.close();
+                userFound = true;
                 return true;
             }
         }
     }
     inFile.close();
+    if (!userFound) {   //Handler for the case of the user not existing.
+        cout << "Error: User does not exist" << endl;
+        return false;
+    }
     return false;
 }
 
@@ -84,7 +90,7 @@ bool User::editPayment(string username, string cardName, string cardNumber, stri
         if (comma != string::npos) {
             string file_username = line.substr(0, comma);
             if (file_username == username) {
-                line = username + "," + cardName + "," + cardNumber + "," + cardExpiration + "," + cardCVV;
+                line = username + ",\"" + cardName + "\"," + cardNumber + "," + cardExpiration + "," + cardCVV;
                 found = true;
             }
         }
@@ -128,7 +134,7 @@ bool User::editShipping(string username, string address, string city, string sta
         if (comma != string::npos) {
             string file_username = line.substr(0, comma);
             if (file_username == username) {
-                line = username + "," + address + "," + city + "," + state + "," + zip;
+                line = username + ",\"" + address + ",\"" + city + ",\"" + state + ",\"" + zip;
                 found = true;
             }
         }
@@ -295,12 +301,12 @@ bool User::deleteAccount(string username, string password) {
     So comments are the same for each respective place.
 */
 bool User::makePayment(string username, string cardName, string cardNumber, string cardExpiration, string cardCVV) {
-    ofstream outFile;  
+    ofstream outFile;
     outFile.open("payment.csv", ios::app); //Opens file in ofstream mode
     if (!outFile.is_open()) {   //Default error handler
         return false;
     }
-    outFile << username << "," << cardName << "," << cardNumber << "," << cardExpiration << "," << cardCVV << endl; //Write information to file
+    outFile << username << ",\"" << cardName << "\"," << cardNumber << "," << cardExpiration << "," << cardCVV << endl; //Write information to file
     outFile.close();    //Closes file
     return true;
 }
@@ -311,7 +317,7 @@ bool User::makeShipping(string username, string address, string city, string sta
     if (!outFile.is_open()) {
         return false;
     }
-    outFile << username << "," << address << "," << city << "," << state << "," << zip << endl;
+    outFile << username << ",\"" << address << ",\"" << city << ",\"" << state << ",\"" << zip << endl;
     outFile.close();
     return true;
 }

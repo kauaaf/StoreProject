@@ -116,13 +116,26 @@ int main()
 
                 }
                 else if (option2 == "4") {
-
+                  string item_name ;
+                  int item_amount ;
+                  cout << "\t Enter the name of the Item you want to remove :" << endl;
+                  cin >> item_name;
+                  cout << "\t Enter the amount :" << endl;
+                  cin >> item_amount ;
+                  if(!cart.addItem(item_name,item_amount)){ cout << "\t failed!" << endl;}
+                  else{ cout << "\t Success! " << endl;  }
                 }
                 else if (option2 == "5") {
-
+                  string option001;
+                  cart.displayCart(username);
+                  cout << "\t Enter the name of the Item you want to remove :" << endl;
+                  cin >> option001;
+                  if(!cart.removeItem(option001)){ cout << "\t failed!" << endl;}
+                  else{ cout << "\t Success! " << endl; }
                 }
                 else if (option2 == "6") {
-
+                  if(!cart.checkout(username)){ cout << "\t Error!" << endl; }
+                  else { cout << "\t Success! " << endl;  }
                 }
                 else if (option2 == "7") {
                     ppl.getOrder(username);

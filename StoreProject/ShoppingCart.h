@@ -12,7 +12,7 @@ public:
     bool addItem(std::string name, int amount);
     bool removeItem(std::string name);
     bool displayCart();
-    bool checkout();
+    bool checkout(std::string username);
 
 private:
     std::string username;

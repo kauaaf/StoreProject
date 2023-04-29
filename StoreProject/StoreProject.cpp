@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include "User.h"
+#include "ShoppingCart.h"
 
 using namespace std;
 
@@ -10,6 +11,7 @@ int main()
 {
     cout << "Welcome to the Store" << endl << endl;
     User ppl;
+    ShoppingCart cart;
    
 
     while (1)

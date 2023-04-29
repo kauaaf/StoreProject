@@ -7,7 +7,8 @@
 
 class ShoppingCart {
 public:
-    ShoppingCart(std::string username);
+    ShoppingCart() {};
+    ShoppingCart(std::string username) : username(username) {};
 
     bool addItem(std::string name, int amount);
     bool removeItem(std::string name);

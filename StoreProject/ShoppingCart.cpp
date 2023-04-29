@@ -5,8 +5,6 @@
 
 using namespace std;
 
-ShoppingCart::ShoppingCart(std::string username) : username(username) {}
-
 bool ShoppingCart::addItem(std::string name, int amount) {
     // Look for item in stock.csv
     std::ifstream file("stock.csv");

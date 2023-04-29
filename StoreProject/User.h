@@ -15,8 +15,8 @@ public:
     bool registerUser(string username, string password);
     bool editPayment(string username, string cardName, string cardNumber, string cardExpiration, string cardCVV);
     bool editShipping(string username, string address, string city, string state, string zip);
-    bool makePayment(string username, string cardName, string cardNumber, string cardExpiration, string cardCVV);
-    bool makeShipping(string username, string address, string city, string state, string zip);
+    bool addPayment(string username, string cardName, string cardNumber, string cardExpiration, string cardCVV);
+    bool addShipping(string username, string address, string city, string state, string zip);
 
     //Getters
     bool login(string username, string password); 

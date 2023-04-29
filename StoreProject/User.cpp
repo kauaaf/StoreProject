@@ -300,7 +300,7 @@ bool User::deleteAccount(string username, string password) {
     Both the function bellow work the same way, only the file and parameters being written are different.
     So comments are the same for each respective place.
 */
-bool User::makePayment(string username, string cardName, string cardNumber, string cardExpiration, string cardCVV) {
+bool User::addPayment(string username, string cardName, string cardNumber, string cardExpiration, string cardCVV) {
     ofstream outFile;
     outFile.open("payment.csv", ios::app); //Opens file in ofstream mode
     if (!outFile.is_open()) {   //Default error handler
@@ -311,7 +311,7 @@ bool User::makePayment(string username, string cardName, string cardNumber, stri
     return true;
 }
 
-bool User::makeShipping(string username, string address, string city, string state, string zip) {
+bool User::addShipping(string username, string address, string city, string state, string zip) {
     ofstream outFile;
     outFile.open("shipping.csv", ios::app);
     if (!outFile.is_open()) {

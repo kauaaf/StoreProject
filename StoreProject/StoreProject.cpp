@@ -181,7 +181,7 @@ int main()
                         getline(cin, cardExp);
                         cout << "\t\tEnter the CVV:\t";
                         getline(cin, cardCVV);
-                        if (!ppl.makePayment(username, cardName, cardNumber, cardExp, cardCVV)) {
+                        if (!ppl.addPayment(username, cardName, cardNumber, cardExp, cardCVV)) {
                             cout << "\tThere was an error, Please try again" << endl;
                         }
                         else {
@@ -198,7 +198,7 @@ int main()
                         getline(cin, state);
                         cout << "\t\tEnter the Zip Code:\t";
                         getline(cin, zip);
-                        if (!ppl.makeShipping(username, address, city, state, zip)) {
+                        if (!ppl.addShipping(username, address, city, state, zip)) {
                             cout << "\t\tThere was an error, Please try again" << endl;
                         }
                         else {

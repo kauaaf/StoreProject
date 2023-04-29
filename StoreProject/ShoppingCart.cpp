@@ -71,35 +71,39 @@ bool ShoppingCart::displayCart() {
     return true;
 }
 
-bool ShoppingCart::checkout() {
+bool ShoppingCart::checkout(string username) {
+    // Check if cart is empty
     if (cart.empty()) {
-        std::cerr << "Cart is empty" << std::endl;
+        cout << "Cart is empty. Cannot proceed to checkout.\n";
         return false;
     }
-
+    
     // Calculate total price
-    double total_price = calculateTotalPrice();
-
-    // Write order to order.csv
-    std::ofstream file("order.csv", std::ios::app);
-    if (!file.is_open()) {
-        std::cerr << "Failed to open file: order.csv" << std::endl;
+    double total = 0.0;
+    for (const auto& item : cart) {
+        total += item.getPrice() * item.getAmount();
+    }
+    
+    // Write to order.csv
+    ofstream file("order.csv", ios::app);
+    if (!file) {
+        cerr << "Error: Could not open file 'order.csv' for writing.\n";
         return false;
     }
-
-    file << username << "," << total_price << std::endl;
+    
+    file << username << "," << total << endl;
+    for (const auto& item : cart) {
+        file << item.getName() << "," << item.getPrice() << "," << item.getAmount() << endl;
+        
+        // Update stock
+        if (!item.setStock(item.getName(), -item.getAmount())) {
+            cerr << "Error: Could not update stock for " << item.getName() << endl;
+            return false;
+        }
+    }
     file.close();
-
-    // Update stock in stock.csv
-    if (!editStock()) {
-        std::cerr << "Failed to update stock in stock.csv" << std::endl;
-        return false;
-    }
-
+    
     // Clear cart
     cart.clear();
-
-cout << "Order successfully checked out!" << endl;
-cout << "Total price: $" << total_price << endl;
-
-return true;
+    return true;
+}

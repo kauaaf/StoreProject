@@ -14,6 +14,7 @@ int main()
 
     while (1)
     {
+        //Set all variables to 0 or null
         int pass = 0;
         string option = "";
         string option2 = "";
@@ -76,6 +77,7 @@ int main()
         else {
             cout << "Not a valid option, Try again" << endl;
         }
+        //If logged in, continue
         if (pass == 1) {
             while (pass == 1) {//Continue Menuing with the other options
                 option2 = "";
@@ -87,13 +89,13 @@ int main()
                 cout << "Menu: " << endl;
                 cout << "0. Exit" << endl;
                 cout << "1. Logout" << endl;
-                cout << "3. Catalog Search" << endl;
-                cout << "4. Add Item From Catalog to Cart" << endl;
-                cout << "5. Remove Item From Cart" << endl;
-                cout << "6. Checkout" << endl;
-                cout << "7. View Order History" << endl;
-                cout << "8. Edit Account(Add/Edit Payment or Shipping Method)" << endl;
-                cout << "9. Delete Account" << endl;
+                cout << "2. Catalog Search" << endl;
+                cout << "3. Add Item From Catalog to Cart" << endl;
+                cout << "4. Remove Item From Cart" << endl;
+                cout << "5. Checkout" << endl;
+                cout << "6. View Order History" << endl;
+                cout << "7. Edit Account(Add/Edit Payment or Shipping Method)" << endl;
+                cout << "8. Delete Account" << endl;
 
                 cout << "Enter choice: ";
                 cin >> option2;
@@ -109,13 +111,11 @@ int main()
                 else if (option2 == "1") {
                     pass = 0;
                 }
+
                 else if (option2 == "2") {
 
                 }
-                else if (option2 == "3") {
-
-                }
-               else if (option2 == "4") {
+               else if (option2 == "3") {
                   string item_name ;
                   int item_amount ;
                   cout << "\t Enter the name of the Item you want to remove :" << endl;
@@ -125,7 +125,7 @@ int main()
                   if(!cart.addItem(item_name,item_amount)){ cout << "\t failed!" << endl;}
                   else{ cout << "\t Success! " << endl;  }
                 }
-                else if (option2 == "5") {
+                else if (option2 == "4") {
                   string option001;
                   cart.displayCart(username);
                   cout << "\t Enter the name of the Item you want to remove :" << endl;
@@ -133,14 +133,14 @@ int main()
                   if(!cart.removeItem(option001)){ cout << "\t failed!" << endl;}
                   else{ cout << "\t Success! " << endl; }
                 }
-                else if (option2 == "6") {
+                else if (option2 == "5") {
                   if(!cart.checkout(username)){ cout << "\t Error!" << endl; }
                   else { cout << "\t Success! " << endl;  }
                 }
-                else if (option2 == "7") {
+                else if (option2 == "6") {
                     ppl.getOrder(username);
                 }
-                else if (option2 == "8") {
+                else if (option2 == "7") {
                     cout << "\t0. Back (PRESS ANY OTHER KEY Then Enter TO GO BACK)" << endl;
                     cout << "\t1. Edit Payment" << endl;
                     cout << "\t2. Edit Shipping" << endl;
@@ -220,7 +220,7 @@ int main()
                     }
 
                 }
-                else if (option2 == "9") {
+                else if (option2 == "8") {
                     cout << "\t\tTo Confirm, type your Password: ";
                     cin >> confirmPassword;
                     if (password == confirmPassword) {

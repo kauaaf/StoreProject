@@ -115,7 +115,7 @@ int main()
                 else if (option2 == "3") {
 
                 }
-                else if (option2 == "4") {
+               else if (option2 == "4") {
                   string item_name ;
                   int item_amount ;
                   cout << "\t Enter the name of the Item you want to remove :" << endl;

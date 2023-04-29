@@ -48,7 +48,7 @@ void Item::printInfo() const {
     cout << "Stock: " << stock << endl;
     cout << "Amount: " << amount << endl;
 }
-/*
+
 bool Item::setStock(string name, int amount){
     // Open the stock.csv file for input and output
     fstream file("stock.csv", ios::in | ios::out);
@@ -108,8 +108,6 @@ bool Item::setStock(string name, int amount){
 
     return true;
 }
-
-*/
 
 void Item::viewCategory(string category) {
     // Open the stock.csv file

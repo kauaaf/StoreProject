@@ -21,7 +21,7 @@ public:
     bool setStock(std::string name, int amount);
     static void viewCategory(std::string category);
 
-
+  
 
 private:
     std::string name;

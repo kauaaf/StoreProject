@@ -90,7 +90,7 @@ bool User::editPayment(string username, string cardName, string cardNumber, stri
         if (comma != string::npos) {
             string file_username = line.substr(0, comma);
             if (file_username == username) {
-                line = "\"" + username + "\",\"" + cardName + "\"," + cardNumber + "," + cardExpiration + "," + cardCVV + "\"";
+                line = "\"" + username + "\"," + cardName + "\"," + cardNumber + "\"," + cardExpiration + "\"," + cardCVV + "\"";
                 found = true;
             }
         }
@@ -134,7 +134,7 @@ bool User::editShipping(string username, string address, string city, string sta
         if (comma != string::npos) {
             string file_username = line.substr(0, comma);
             if (file_username == username) {
-                line = "\"" + username + "\",\"" + address + "\",\"" + city + "\",\"" + state + "\",\"" + zip + "\"";
+                line = "\"" + username + "\"," + address + "\"," + city + "\"," + state + "\"," + zip + "\"";
                 found = true;
             }
         }
@@ -317,7 +317,7 @@ bool User::addShipping(string username, string address, string city, string stat
     if (!outFile.is_open()) {
         return false;
     }
-    outFile << "\"" << username << "\",\"" << address << "\",\"" << city << "\",\"" << state << "\",\"" << zip << "\"" << endl;
+    outFile << "\"" << username << "\",\"" << address << "\"," << city << "\"," << state << "\"," << zip << "\"" << endl;
     outFile.close();
     return true;
 }

@@ -43,7 +43,6 @@ int main()
             pass = -1;
             break;
         }
-        ShoppingCart cart("");
         if (option == "1") {
             cout << "Please Enter your Username:\t";
             cin >> username;

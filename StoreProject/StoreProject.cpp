@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include "User.h"
+#include "Item.h"
 #include "ShoppingCart.h"
 
 using namespace std;
@@ -11,12 +12,10 @@ int main()
 {
     cout << "Welcome to the Store" << endl << endl;
     User ppl;
-    ShoppingCart cart;
+    //Item thing;
    
-
     while (1)
     {
-        //Set all variables to 0 or null
         int pass = 0;
         string option = "";
         string option2 = "";
@@ -44,7 +43,7 @@ int main()
             pass = -1;
             break;
         }
-
+        ShoppingCart cart("");
         if (option == "1") {
             cout << "Please Enter your Username:\t";
             cin >> username;
@@ -59,6 +58,7 @@ int main()
             else {
                 cout << "Login Successful" << endl;
                 pass = 1;
+                ShoppingCart cart(username);
             }
         }
 
@@ -79,7 +79,7 @@ int main()
         else {
             cout << "Not a valid option, Try again" << endl;
         }
-        //If logged in, continue
+       
         if (pass == 1) {
             while (pass == 1) {//Continue Menuing with the other options
                 option2 = "";
@@ -87,11 +87,10 @@ int main()
                 cardName, cardNumber, cardExp, cardCVV = "";
                 address, city, state, zip = "";
                 confirmPassword = "";
-                cout << endl;
                 cout << "Menu: " << endl;
                 cout << "0. Exit" << endl;
                 cout << "1. Logout" << endl;
-                cout << "2. Catalog Search" << endl;
+                cout << "2. Catelog Search" << endl;
                 cout << "3. Add Item From Catalog to Cart" << endl;
                 cout << "4. Remove Item From Cart" << endl;
                 cout << "5. Checkout" << endl;
@@ -105,6 +104,7 @@ int main()
                 cout << endl;
 
                 // exit
+              
                 if (option2 == "0")
                 {
                     pass = -1;
@@ -115,29 +115,32 @@ int main()
                 }
 
                 else if (option2 == "2") {
-
+                  string itemSearch;
+                  cout << "Enter the Category for your search(food, toys):\t" << endl;
+                  cin >> itemSearch;
+                  
                 }
-               else if (option2 == "3") {
+                else if (option2 == "3") {
                   string item_name ;
                   int item_amount ;
-                  cout << "\t Enter the name of the Item you want to remove :" << endl;
+                  cout << "\t Enter the name of the Item you want to [ ADD TO CART ]:\t";
                   cin >> item_name;
-                  cout << "\t Enter the amount :" << endl;
+                  cout << "\t Enter the amount :\t";
                   cin >> item_amount ;
-                  if(!cart.addItem(item_name,item_amount)){ cout << "\t failed!" << endl;}
-                  else{ cout << "\t Success! " << endl;  }
+                  if(!cart.addItem(item_name,item_amount)){ cout << "\t !OOPS! " << endl;}
+                  else{ cout << "\t ADDED! " << endl;  }
                 }
                 else if (option2 == "4") {
-                  string option001;
-                  cart.displayCart(username);
-                  cout << "\t Enter the name of the Item you want to remove :" << endl;
-                  cin >> option001;
-                  if(!cart.removeItem(option001)){ cout << "\t failed!" << endl;}
-                  else{ cout << "\t Success! " << endl; }
+                  if(cart.displayCart(username)){
+                      cout << endl;
+                      if(!cart.removeItem()){ cout << "\t OOPS!" << endl;}
+                      else{ cout << "\t REMOVED! " << endl; }
+                  }
+                  else { cout << "\t ERROR! " << endl; }
                 }
                 else if (option2 == "5") {
                   if(!cart.checkout(username)){ cout << "\t Error!" << endl; }
-                  else { cout << "\t Success! " << endl;  }
+                  else { cout << "\t CHECKOUT SUCCESSFULL ! " << endl;  }
                 }
                 else if (option2 == "6") {
                     ppl.getOrder(username);
@@ -148,82 +151,80 @@ int main()
                     cout << "\t2. Edit Shipping" << endl;
                     cout << "\t3. Add Payment" << endl;
                     cout << "\t4. Add Shipping" << endl;
-                    cout << "\tEnter choice: ";
+
                     cin >> editOption;
 
                     if (editOption == "1") {
                         cout << "\t\tEnter the Name on the Card:\t";
-                        cin.ignore();
-                        getline(cin, cardName);
+                        cin >> cardName;
                         cout << "\t\tEnter the Card Number:\t";
-                        getline(cin, cardNumber);
+                        cin >> cardNumber;
                         cout << "\t\tEnter the Expiration (MM/DD):\t";
-                        getline(cin, cardExp);
+                        cin >> cardExp;
                         cout << "\t\tEnter the CVV:\t";
-                        getline(cin, cardCVV);
-                        if (!ppl.editPayment(username, cardName, cardNumber, cardExp, cardCVV)) {
-                            cout << "\tThere was an error, Please try again" << endl;
+                        cin >> cardCVV;
+                        if(!ppl.editPayment(username, cardName, cardNumber, cardExp, cardCVV)) {
+                          cout << "There was an error, Please try again" << endl;
                         }
                         else {
-                            cout << "\tPayment Changed Successfully" << endl;
+                          cout << "Payment Changed Succesffuly" << endl;
                         }
                     }
-                    if (editOption == "2") {
+                   if (editOption == "2") {
                         cout << "\t\tEnter Your Shipping Address (Just the street address):\t";
                         cin.ignore();
                         getline(cin, address);
                         cout << "\t\tEnter the City:\t";
-                        getline(cin, city);
+                        cin >> city;
                         cout << "\t\tEnter the State (Abbreviation):\t";
-                        getline(cin, state);
+                        cin >> state;
                         cout << "\t\tEnter the Zip Code:\t";
-                        getline(cin, zip);
-                        if (!ppl.editShipping(username, address, city, state, zip)) {
-                            cout << "\tThere was an error, Please try again" << endl;
-
+                        cin >> zip;
+                        if(!ppl.editShipping(username, address, city, state, zip)) {
+                           cout << "There was an error, Please try again" << endl;
+                           
                         }
                         else {
-                            cout << "\tShipping Changed Successfully" << endl;
+                          cout << "Shipping Changed Succesffuly" << endl;
                         }
                     }
-                    if (editOption == "3") {
-                        cin.ignore();
+                  if (editOption == "3") {
                         cout << "\t\tEnter the Name on the Card:\t";
-                        getline(cin, cardName);
+                        cin >> cardName;
                         cout << "\t\tEnter the Card Number:\t";
-                        getline(cin, cardNumber);
+                        cin >> cardNumber;
                         cout << "\t\tEnter the Expiration (MM/DD):\t";
-                        getline(cin, cardExp);
+                        cin >> cardExp;
                         cout << "\t\tEnter the CVV:\t";
-                        getline(cin, cardCVV);
-                        if (!ppl.addPayment(username, cardName, cardNumber, cardExp, cardCVV)) {
-                            cout << "\tThere was an error, Please try again" << endl;
+                        cin >> cardCVV;
+                        if(!ppl.makePayment(username, cardName, cardNumber, cardExp, cardCVV)) {
+                          cout << "There was an error, Please try again" << endl;
                         }
                         else {
-                            cout << "\tPayment Method Added Successfully" << endl;
-                        }
+                          cout << "Payment Method Added Succesffuly" << endl;                        }
                     }
                     if (editOption == "4") {
                         cout << "\t\tEnter Your Shipping Address (Just the street address):\t";
                         cin.ignore();
                         getline(cin, address);
                         cout << "\t\tEnter the City:\t";
-                        getline(cin, city);
+                        cin >> city;
                         cout << "\t\tEnter the State (Abbreviation):\t";
-                        getline(cin, state);
+                        cin >> state;
                         cout << "\t\tEnter the Zip Code:\t";
-                        getline(cin, zip);
-                        if (!ppl.addShipping(username, address, city, state, zip)) {
-                            cout << "\t\tThere was an error, Please try again" << endl;
+                        cin >> zip;
+                        if(!ppl.makeShipping(username, address, city, state, zip)) {
+                           cout << "There was an error, Please try again" << endl;
                         }
                         else {
-                            cout << "\nShipping Address Added" << endl;
-                        }
+                          cout << "Shipping Address Added" << endl;
+                      }
+
                     }
 
                 }
                 else if (option2 == "8") {
-                    cout << "\t\tTo Confirm, type your Password: ";
+                    cout << "\t\tTo Confirm, type your Password:\t" << endl;
                     cin >> confirmPassword;
                     if (password == confirmPassword) {
                         cout << "\t\tDeleting Account.." << endl;
@@ -232,8 +233,8 @@ int main()
 
                         }
                         else {
-                            cout << "\t\tAccount Deletion Succesfful!" << endl;
-                            pass = 0;
+                            cout << "\t\t Account Deletion Succesfful!" << endl;
+                            pass = 1;
                         }
 
                     }

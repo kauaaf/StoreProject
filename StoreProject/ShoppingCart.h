@@ -7,20 +7,17 @@
 
 class ShoppingCart {
 public:
-    ShoppingCart() {};
-    ShoppingCart(std::string username) : username(username) {};
+    ShoppingCart(std::string username);
 
     bool addItem(std::string name, int amount);
-    bool removeItem(std::string name);
+    bool removeItem();
     bool displayCart(std::string username);
     bool checkout(std::string username);
+    bool editstock(std::string name, int amount);
 
 private:
     std::string username;
     std::vector<Item> cart;
-
-    double calculateTotalPrice();
-    bool editStock();
 };
 
 #endif // SHOPPING_CART_H
